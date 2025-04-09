@@ -1,5 +1,13 @@
 # Pynini for Windows
 
+This repository is a fork of Pynini and will be updated when new release versions of Pynini are published, until Pynini decides to support Windows.
+
+**Don't open a new Issue to request a specific commit build. Wait for a new stable release.**
+
+**Don't open Issues for general Pynini questions or non Windows related problems. Only Windows specific issues.** Any Issue opened that is not Windows specific will be closed automatically.
+
+**Don't request a wheel for your specific environment.**
+
 This project is maintained by [@SystemPanic](https://github.com/SystemPanic)
 
 If you use Pynini in your research, we would appreciate if you cite the
@@ -12,22 +20,23 @@ following paper:
 (Note that some of the code samples in the paper are now out of date and not
 expected to work.)
 
-## Windows Dependencies
+### Windows instructions:
 
--   Microsoft Visual Studio 2019 or newer
--   [Python 3.6+](https://www.python.org) and headers
+#### Installing an existing release wheel:
 
-## Installation instructions
+1. Ensure that you have the correct Python version of the wheel. The Python version of the wheel is specified in the release version
+2. Download the wheel from the release version of your preference
+3. Install it with ```pip install DOWNLOADED_WHEEL_PATH```
 
-Clone the repository and install as a normal python project. For example:
+#### Building from source:
 
-`pip install .` or  `python setup.py bdist_wheel && pip install dist\pynini-VERSION-cp312-cp312-win_amd64.whl`
+A Visual Studio 2019 or newer is required to launch the compiler x64 environment. The installation path is referred in the instructions as VISUAL_STUDIO_INSTALL_PATH. For example, for Visual Studio 2022 default installation, replace VISUAL_STUDIO_INSTALL_PATH with C:\Program Files\Microsoft Visual Studio\2022\Community
 
-## Testing
-
-To confirm successful installation, run `pip install -r requirements`, then
-`python tests/pynini_test.py`. If all tests pass, the final line will read `OK`;
-a successful run will log some errors to STDERR (this is working as expected).
+1. Open a Command Line (cmd.exe)
+2. Clone the Pynini for Windows repository: `cd C:\ & git clone https://github.com/SystemPanic/pynini-windows.git`
+3. Execute (in cmd) `VISUAL_STUDIO_INSTALL_PATH\VC\Auxiliary\Build\vcvarsall.bat x64`
+4. Change the working directory to the cloned repository path, for example: `cd C:\pynini-windows`
+6. Build & install: `pip install . --no-build-isolation`
 
 ## Python version support
 
