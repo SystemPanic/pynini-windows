@@ -2,3 +2,8 @@ PKG-INFO
 *.egg-info
 setup.cfg
 *.py[co]
+build
+dist
+third_party/openfst
+extensions/_pynini.cpp
+extensions/_pywrapfst.cpp

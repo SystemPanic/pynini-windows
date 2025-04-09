@@ -180,7 +180,7 @@ cdef extern from "cdrewrite.h" \
   # support: https://github.com/cython/cython/issues/1603
   ctypedef enum CDRewriteMode:
     OBLIGATORY "fst::CDRewriteMode::OBLIGATORY"
-    OPTIONAL "fst::CDRewriteMode::OPTOINAL"
+    WRITE_OPTIONAL "fst::CDRewriteMode::WRITE_OPTIONAL"
 
 
 cdef extern from "cdrewritescript.h" \

@@ -170,6 +170,17 @@ class FstOpError(FstError, RuntimeError):
 
 ## General helpers.
 
+ctypedef int32_t(*int32_f_type)() 
+ctypedef size_t(*sizet_f_type)() 
+
+cdef int32_t numeric_limits_int32_max() except *:
+  cdef int32_f_type non_evil_preprocessor_max_fn = numeric_limits[int32_t].max
+  return non_evil_preprocessor_max_fn()
+  
+cdef size_t numeric_limits_sizet_max() except *:
+  cdef sizet_f_type non_evil_preprocessor_max_fn = numeric_limits[size_t].max
+  return non_evil_preprocessor_max_fn()
+
 
 cdef string tostring(data) except *:
   """Converts strings to bytestrings.
@@ -1854,7 +1865,8 @@ cdef class Fst:
       FstIndexError: State index out of range.
     """
     cdef size_t _result = self._fst.get().NumArcs(state)
-    if _result == numeric_limits[size_t].max():
+	
+    if _result == numeric_limits_sizet_max():
       raise FstIndexError("State index out of range")
     return _result
 
@@ -1874,7 +1886,7 @@ cdef class Fst:
       FstIndexError: State index out of range.
     """
     cdef size_t _result = self._fst.get().NumInputEpsilons(state)
-    if _result == numeric_limits[size_t].max():
+    if _result == numeric_limits_sizet_max():
       raise FstIndexError("State index out of range")
     return _result
 
@@ -1894,7 +1906,7 @@ cdef class Fst:
       FstIndexError: State index out of range.
     """
     cdef size_t _result = self._fst.get().NumOutputEpsilons(state)
-    if _result == numeric_limits[size_t].max():
+    if _result == numeric_limits_sizet_max():
       raise FstIndexError("State index out of range")
     return _result
 
@@ -4090,7 +4102,7 @@ cpdef bool randequivalent(Fst ifst1,
                           int32_t npath=1,
                           float delta=fst.kDelta,
                           select="uniform",
-                          int32_t max_length=numeric_limits[int32_t].max(),
+                          int32_t max_length=numeric_limits_int32_max(),
                           uint64_t seed=fst.kDefaultSeed) except *:
   """
   randequivalent(ifst1, ifst2, npath=1, delta=0.0009765625, select="uniform",
@@ -4139,7 +4151,7 @@ cpdef bool randequivalent(Fst ifst1,
 cpdef MutableFst randgen(Fst ifst,
                          int32_t npath=1,
                          select="uniform",
-                         int32_t max_length=numeric_limits[int32_t].max(),
+                         int32_t max_length=numeric_limits_int32_max(),
                          bool weighted=False,
                          bool remove_total_weight=False,
                          uint64_t seed=fst.kDefaultSeed):

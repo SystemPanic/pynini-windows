@@ -51,7 +51,8 @@ namespace fst {
 
 enum class CDRewriteDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT, SIMULTANEOUS };
 
-enum class CDRewriteMode { OBLIGATORY, OPTIONAL };
+//WINDOWS CHANGE: OPTIONAL IS CHANGED TO WRITE_OPTIONAL, AS OPTIONAL IS RESERVED IN MSVC
+enum class CDRewriteMode { OBLIGATORY, WRITE_OPTIONAL };
 
 namespace internal {
 
@@ -92,7 +93,7 @@ class CDRewriteRule {
   // sigma is an FST specifying (the closure of) the alphabet for the resulting
   // transducer. The dir argument can be CDRewriteDirection::LEFT_TO_RIGHT,
   // CDRewriteDirection::RIGHT_TO_LEFT or CDRewriteDirection::SIMULTANEOUS; mode
-  // can be CDRewriteMode::OBLIGATORY or CDRewriteMode::OPTIONAL; sigma must be
+  // can be CDRewriteMode::OBLIGATORY or CDRewriteMode::WRITE_OPTIONAL; sigma must be
   // an unweighted acceptor representing a bifix code.
   //
   // The error bit on the output FST is set if any argument does not satisfy the
@@ -417,7 +418,7 @@ void CDRewriteRule<Arc>::MakeReplace(MutableFst<Arc> *fst,
           break;
       }
       break;
-    case CDRewriteMode::OPTIONAL:
+    case CDRewriteMode::WRITE_OPTIONAL:
       all_loops.emplace_back(rbrace_, 0);
       initial_loops.emplace_back(rbrace_, 0);
       switch (dir_) {
@@ -482,7 +483,7 @@ typename Arc::Label CDRewriteRule<Arc>::MaxLabel(const Fst<Arc> &fst) {
 // is an FST specifying (the closure of) the alphabet for the resulting
 // transducer. dir can be CDRewriteDirection::LEFT_TO_RIGHT,
 // CDRewriteDirection::RIGHT_TO_LEFT or CDRewriteDirection::SIMULTANEOUS. mode
-// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::OPTIONAL. sigma must be an
+// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::WRITE_OPTIONAL. sigma must be an
 // unweighted acceptor representing a bifix code.
 //
 // The error bit on the output FST is set if any argument does not satisfy the
@@ -581,7 +582,7 @@ void CDRewriteRule<Arc>::Compile(const Fst<Arc> &sigma, MutableFst<Arc> *fst,
           Compose(c, l2, fst);
           break;
         }
-        case CDRewriteMode::OPTIONAL: {
+        case CDRewriteMode::WRITE_OPTIONAL: {
           // Builds l filter.
           VectorFst<Arc> l;
           MakeFilter(*lambda_, mutable_sigma, &l, MarkerType::CHECK,
@@ -628,7 +629,7 @@ void CDRewriteRule<Arc>::Compile(const Fst<Arc> &sigma, MutableFst<Arc> *fst,
           Compose(c, r2, fst);
           break;
         }
-        case CDRewriteMode::OPTIONAL: {
+        case CDRewriteMode::WRITE_OPTIONAL: {
           // Builds r filter.
           VectorFst<Arc> r;
           MakeFilter(*rho_, mutable_sigma, &r, MarkerType::CHECK,
@@ -677,7 +678,7 @@ void CDRewriteRule<Arc>::Compile(const Fst<Arc> &sigma, MutableFst<Arc> *fst,
           Compose(c, replace, fst);
           break;
         }
-        case CDRewriteMode::OPTIONAL: {
+        case CDRewriteMode::WRITE_OPTIONAL: {
           // Builds l filter.
           VectorFst<Arc> l;
           MakeFilter(*lambda_, mutable_sigma, &l, MarkerType::CHECK,
@@ -854,7 +855,7 @@ bool CDRewriteRule<Arc>::HasArcWithLabel(const Fst<Arc> &fst, Label label) {
 // otherwise. sigma is an FST specifying (the closure of) the alphabet
 // for the resulting transducer. dir can be CDRewriteDirection::LEFT_TO_RIGHT,
 // CDRewriteDirection::RIGHT_TO_LEFT or CDRewriteDirection::SIMULTANEOUS. mode
-// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::OPTIONAL. sigma must be an
+// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::WRITE_OPTIONAL. sigma must be an
 // unweighted acceptor representing a bifix code.
 //
 // The error bit on the output FST is set if any argument does not satisfy the
@@ -881,7 +882,7 @@ void CDRewriteCompile(
 // weighted acceptor. sigma is an FST specifying (the closure of) the alphabet
 // for the resulting transducer. dir can be CDRewriteDirection::LEFT_TO_RIGHT,
 // CDRewriteDirection::RIGHT_TO_LEFT or CDRewriteDirection::SIMULTANEOUS. mode
-// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::OPTIONAL. sigma must be an
+// can be CDRewriteMode::OBLIGATORY or CDRewriteMode::WRITE_OPTIONAL. sigma must be an
 // unweighted acceptor representing a bifix code.
 //
 // The error bit on the output FST is set if any argument does not satisfy the
@@ -908,7 +909,7 @@ void CDRewriteCompile(
 // closure of) the alphabet for the resulting transducer. dir can be
 // CDRewriteDirection::LEFT_TO_RIGHT, CDRewriteDirection::RIGHT_TO_LEFT or
 // CDRewriteDirection::SIMULTANEOUS. mode can be CDRewriteMode::OBLIGATORY or
-// CDRewriteMode::OPTIONAL. sigma must be an unweighted acceptor representing a
+// CDRewriteMode::WRITE_OPTIONAL. sigma must be an unweighted acceptor representing a
 // bifix code.
 //
 // The error bit on the output FST is set if any argument does not satisfy the

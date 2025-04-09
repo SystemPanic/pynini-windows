@@ -1,11 +1,6 @@
-# OpenGrm Pynini
+# Pynini for Windows
 
-This is a a Python extension module for compiling, optimizing and applying
-grammar rules. Rules can be compiled into weighted finite state transducers,
-pushdown transducers, or multi-pushdown transducers. It uses OpenFst
-finite-state transducers (FSTs) and FST archives (FArs) as inputs and outputs.
-
-This library is primarily developed by [Kyle Gorman](mailto:kbg@google.com).
+This project is maintained by [@SystemPanic](https://github.com/SystemPanic)
 
 If you use Pynini in your research, we would appreciate if you cite the
 following paper:
@@ -17,56 +12,16 @@ following paper:
 (Note that some of the code samples in the paper are now out of date and not
 expected to work.)
 
-## Dependencies
+## Windows Dependencies
 
--   A standards-compliant C++17 compiler (GCC \>= 7 or Clang \>= 700)
--   The compatible recent version of [OpenFst](http://openfst.org) (see
-    [`NEWS`](NEWS) for this) built with the `grm` extensions (i.e., built with
-    `./configure --enable-grm`) and headers
+-   Microsoft Visual Studio 2019 or newer
 -   [Python 3.6+](https://www.python.org) and headers
 
 ## Installation instructions
 
-There are various ways to install Pynini depending on your platform.
+Clone the repository and install as a normal python project. For example:
 
-### Windows
-
-While Pynini is neither designed for nor tested on Windows, it can be installed
-using the
-[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-(WSL). Simply enter the WSL environment and follow the Linux instructions below.
-
-### MacOS
-
-The pre-compiled library can be installed from
-[`conda-forge`](https://conda-forge.org/) by running `conda install -c
-conda-forge pynini`.
-
-Alternatively, one can build from source from [PyPI](https://pypi.org/) by
-running `pip install pynini`.
-
-Finally, one can use [Bazel](https://bazel.build) to build from source by
-running `bazel build //:all` anywhere in the source tree.
-
-### Linux
-
-The pre-compiled library can be installed from
-[`conda-forge`](https://conda-forge.org/) by running `conda install -c
-conda-forge pynini`.
-
-Alternatively, one can install a pre-compiled
-[`manylinux`](https://github.com/pypa/manylinux) wheel from
-[PyPI](https://pypi.org/) by running `pip install pynini`. This will install the
-pre-compiled `manylinux` wheel (if available for the release and compatible with
-your platform), and build and install from source if not. Unlike the
-`conda-forge` option above, which also installs [OpenFst](http://openfst.org/)
-and [Graphviz](https://graphviz.org/), this does not install the OpenFst or
-Graphviz command-line tools. See the enclosed
-[`Dockerfile`](third_party/Dockerfile) for instructions for building and
-deploying `manylinux` wheels.
-
-Finally, one can use [Bazel](https://bazel.build) to build from source by
-running `bazel build //:all` anywhere in the source tree.
+`pip install .` or  `python setup.py bdist_wheel && pip install dist\pynini-VERSION-cp312-cp312-win_amd64.whl`
 
 ## Testing
 

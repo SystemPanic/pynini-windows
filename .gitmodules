@@ -1,0 +1,4 @@
+[submodule "third_party/openfst"]
+	path = third_party/openfst
+	url = https://github.com/SystemPanic/openfst-windows.git
+	ignore = dirty

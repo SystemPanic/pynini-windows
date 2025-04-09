@@ -37,7 +37,7 @@ bool GetCDRewriteMode(std::string_view str, CDRewriteMode *rm) {
   if (str == "obl") {
     *rm = CDRewriteMode::OBLIGATORY;
   } else if (str == "opt") {
-    *rm = CDRewriteMode::OPTIONAL;
+    *rm = CDRewriteMode::WRITE_OPTIONAL;
   } else {
     return false;
   }
