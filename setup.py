@@ -27,10 +27,17 @@ from setuptools import find_packages
 from setuptools import setup
 
 LIBRARIES = ["fstfarscript", "fstfar", "fstscript", "fst"]
+LINKER_ARGS = None
 
 if sys.platform.startswith("win32"):
     COMPILE_ARGS = [
         "/std:c++17"
+    ]
+    LINKER_ARGS = [
+        "/WHOLEARCHIVE:fstfarscript",
+        "/WHOLEARCHIVE:fstfar",
+        "/WHOLEARCHIVE:fstscript",
+        "/WHOLEARCHIVE:fst"
     ]
     openfst_dir = os.path.join(os.path.dirname(__file__),
                                "third_party", "openfst")
@@ -57,6 +64,7 @@ pywrapfst = Extension(
     name="_pywrapfst",
     language="c++",
     extra_compile_args=COMPILE_ARGS,
+    extra_link_args=LINKER_ARGS,
     libraries=LIBRARIES,
     include_dirs=include_dirs,
     library_dirs=library_dirs,
@@ -66,6 +74,7 @@ pynini = Extension(
     name="_pynini",
     language="c++",
     extra_compile_args=COMPILE_ARGS,
+    extra_link_args=LINKER_ARGS,
     include_dirs=include_dirs,
     library_dirs=library_dirs,
     libraries=["fstmpdtscript", "fstpdtscript"] + LIBRARIES,
